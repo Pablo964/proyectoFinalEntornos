@@ -27,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 
 /**
  *
@@ -40,13 +41,20 @@ public class FXMLDocumentController implements Initializable
     private TextField loginPass;
     @FXML
     private Button buttonLogin;
-
-    private  List<Administrator> administrators;
+    @FXML
+    private  Pane loginPane;
+    @FXML
+    private  Pane paneAppointments, paneShop, paneCustomers, paneWhite;
+    @FXML
+    private Button buttonCustomer, buttonShop, buttonAppointment;
     
+    private  List<Administrator> administrators;
+    private boolean loginDisable;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
+        loginDisable = false;
         try
         {
             administrators= new ArrayList<>();
@@ -66,6 +74,7 @@ public class FXMLDocumentController implements Initializable
            List<Administrator> administrators = new ArrayList<>();
         }
     } 
+    
     public void login(ActionEvent event) 
     {
         for(Administrator a : administrators)
@@ -76,10 +85,9 @@ public class FXMLDocumentController implements Initializable
                 Alert dialog = new Alert(Alert.AlertType.INFORMATION);
                 dialog.setHeaderText("Login Success");
                 dialog.setContentText("Welcome " + a.getName() + "!");
-                dialog.showAndWait();  
-                buttonLogin.setDisable(true);
-                loginName.setDisable(true);
-                loginPass.setDisable(true);
+                dialog.showAndWait();
+                loginPane.setDisable(true);
+                loginDisable = true;
             }
             else
             {
@@ -88,6 +96,33 @@ public class FXMLDocumentController implements Initializable
                 dialog.setContentText("username or password incorrect");
                 dialog.showAndWait();
             }
+        }
+    }
+    
+    @FXML
+    public void handleButtonAction(ActionEvent event)
+    {
+        if (loginDisable) 
+        {
+            if (event.getSource() == buttonCustomer) 
+            {
+                paneCustomers.toFront();
+            }
+            else if (event.getSource() == buttonShop) 
+            {
+                paneShop.toFront();
+            }
+            else if (event.getSource() == buttonAppointment) 
+            {
+                paneAppointments.toFront();
+            }
+        }
+        else
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setHeaderText("Error login");
+            dialog.setContentText("you must login to access the functionalities");
+            dialog.showAndWait();
         }
     }
 }
