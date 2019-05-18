@@ -32,10 +32,8 @@ public class Customer
 
     public List<Dog> getDogs() {return dogs;}
 
-    public void setDogs(List<Dog> dogs) {this.dogs = dogs;}
-    
-   
-    
+    public void setDogs(Dog dog){this.dogs.add(dog);}
+     
     @Override
     public String toString() 
     {

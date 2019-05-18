@@ -6,6 +6,8 @@
 package doggroomerfx;
 
 import doggroomer.data.Administrator;
+import doggroomer.data.Customer;
+import doggroomer.data.Dog;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -47,8 +49,16 @@ public class FXMLDocumentController implements Initializable
     private  Pane paneAppointments, paneShop, paneCustomers, paneWhite;
     @FXML
     private Button buttonCustomer, buttonShop, buttonAppointment;
+    @FXML
+    private TextField addCustomerName, addCustomerTel, addCustomerEmail;
+    @FXML
+    private TextField addDogName, addDogTel, addDogSize, addDogAgressive,
+            addDogLongHair, addDogPrice;
     
     private  List<Administrator> administrators;
+    private  List<Customer> customers;
+    private  List<Dog> dogs;
+    
     private boolean loginDisable;
     
     @Override
@@ -68,6 +78,9 @@ public class FXMLDocumentController implements Initializable
                 administrators.add(new Administrator(line.split(":")[0],
                         line.split(":")[1]));
             }
+            
+            customers = new ArrayList<>();
+            dogs = new ArrayList<>();
         }
         catch (Exception e)
         {
@@ -99,6 +112,92 @@ public class FXMLDocumentController implements Initializable
         }
     }
     
+    
+    @FXML
+    public void addCustomer(ActionEvent event)
+    {
+        
+        if (addCustomerName.getText().equals("") 
+                || addCustomerTel.getText().equals("")
+                || addCustomerEmail.getText().equals("")) 
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setHeaderText("Error");
+            dialog.setContentText("you must fill in all fields in order to "
+                    + "add a customer");
+            dialog.showAndWait();
+        }
+        else
+        {
+            customers.add(new Customer(addCustomerName.getText(),
+                    Integer.parseInt(addCustomerTel.getText()), 
+                    addCustomerEmail.getText()));
+            
+            Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+            dialog.setHeaderText("Customer add Success");
+            dialog.setContentText("Customer " + addCustomerName.getText() 
+                    + " add success!");
+            dialog.showAndWait();
+        }
+    }
+    
+    public void addDog(ActionEvent event)
+    {
+        int positionDog;
+        boolean agressive, longHair;
+        String customer = "";
+        
+        if (addDogName.getText().equals("") 
+                || addDogTel.getText().equals("")
+                || addDogSize.getText().equals("")
+                || addDogAgressive.getText().equals("")
+                || addDogLongHair.getText().equals("")
+                || addDogPrice.getText().equals("")) 
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setHeaderText("Error");
+            dialog.setContentText("you must fill in all fields in order to "
+                    + "add a dog");
+            dialog.showAndWait();
+        }
+        else
+        {
+            
+            if ("y".equals(addDogAgressive.getText().toLowerCase()))
+                agressive = true;
+            else
+                agressive = false;
+            
+            if ("y".equals(addDogLongHair.getText().toLowerCase()))
+                longHair = true;
+            
+            else
+                longHair = false;
+            
+            dogs.add(new Dog(addDogName.getText(), addDogSize.getText(),
+                    agressive, longHair,
+                    Integer.parseInt(addDogPrice.getText())));
+            
+            positionDog = dogs.size() - 1;
+            
+            for(Customer c : customers)
+            {
+                if (c.getTelephone() == Integer.parseInt(addDogTel.getText())) 
+                {
+                    c.setDogs(dogs.get(positionDog));
+                    System.out.println(c.getDogs());
+                    customer = c.getName();
+                }
+            }
+            
+            Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+            dialog.setHeaderText("Customer add Success");
+            dialog.setContentText("Dog " + addDogName.getText() 
+                    + " add success for the customer " + customer);
+            dialog.showAndWait();
+        }
+    }
+    
     @FXML
     public void handleButtonAction(ActionEvent event)
     {
@@ -125,4 +224,17 @@ public class FXMLDocumentController implements Initializable
             dialog.showAndWait();
         }
     }
+    
+    /*textField.textProperty().addListener(new ChangeListener<String>() 
+    {
+        @Override
+        public void changed(ObservableValue<? extends String> observable, 
+                String oldValue, String newValue) 
+        {
+            if (!newValue.matches("\\d*")) 
+            {
+                addCustomerSize.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        }
+    });*/
 }
