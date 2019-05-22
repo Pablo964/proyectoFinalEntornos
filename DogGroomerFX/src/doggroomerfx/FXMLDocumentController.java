@@ -9,8 +9,10 @@ import doggroomer.data.Administrator;
 import doggroomer.data.Customer;
 import doggroomer.data.Dog;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,7 +32,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 
 /**
@@ -50,21 +56,44 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private Button buttonCustomer, buttonShop, buttonAppointment;
     @FXML
-    private TextField addCustomerName, addCustomerTel, addCustomerEmail;
+    private TextField addCustomerName, addCustomerEmail;
     @FXML
-    private TextField addDogName, addDogTel, addDogSize, addDogAgressive,
-            addDogLongHair, addDogPrice;
-    
+    private TextField addCustomerTel;
+    @FXML
+    private TextField addDogName, addDogTel, addDogAgressive, addDogLongHair,
+            addDogPrice;
+    @FXML
+    private RadioButton  dogSizeBig, dogSizeMedium, dogSizeSmall, longHairYes,
+            longHairNo, agressiveYes, agressiveNo;
     private  List<Administrator> administrators;
-    private  List<Customer> customers;
-    private  List<Dog> dogs;
     
+    private Administrator admin;
+    
+    @FXML
+    private ToggleGroup sizeGroup, longHairGroup, agressiveGroup;
+     
     private boolean loginDisable;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
+        sizeGroup = new ToggleGroup();
+        dogSizeBig.setToggleGroup(sizeGroup);
+        dogSizeMedium.setToggleGroup(sizeGroup);
+        dogSizeSmall.setToggleGroup(sizeGroup);
+        
+        longHairGroup = new ToggleGroup();
+        longHairYes.setToggleGroup(longHairGroup);
+        longHairNo.setToggleGroup(longHairGroup);
+        
+        agressiveGroup = new ToggleGroup();
+        agressiveYes.setToggleGroup(agressiveGroup);
+        agressiveNo.setToggleGroup(agressiveGroup);
+        
+        paneCustomers.toFront();
         loginDisable = false;
+        
+        
         try
         {
             administrators= new ArrayList<>();
@@ -79,13 +108,28 @@ public class FXMLDocumentController implements Initializable
                         line.split(":")[1]));
             }
             
-            customers = new ArrayList<>();
-            dogs = new ArrayList<>();
+            br.close();
+            fr.close();
+            
         }
         catch (Exception e)
         {
            List<Administrator> administrators = new ArrayList<>();
         }
+        
+            addCustomerTel.textProperty().addListener
+                    (new ChangeListener<String>() 
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, 
+                    String oldValue, String newValue) 
+            {
+                if (!newValue.matches("\\d")) 
+                {
+                    addCustomerTel.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     } 
     
     public void login(ActionEvent event) 
@@ -95,12 +139,14 @@ public class FXMLDocumentController implements Initializable
             if (a.getName().equals(loginName.getText()) 
                     && a.getPassword().equals(loginPass.getText())) 
             {
+                
                 Alert dialog = new Alert(Alert.AlertType.INFORMATION);
                 dialog.setHeaderText("Login Success");
                 dialog.setContentText("Welcome " + a.getName() + "!");
                 dialog.showAndWait();
                 loginPane.setDisable(true);
                 loginDisable = true;
+                admin = new Administrator(a.getName(), a.getPassword());
             }
             else
             {
@@ -111,15 +157,15 @@ public class FXMLDocumentController implements Initializable
             }
         }
     }
-    
-    
     @FXML
     public void addCustomer(ActionEvent event)
     {
+        String name = addCustomerName.getText();
+        int tel = Integer.parseInt(addCustomerTel.getText());
+        String email = addCustomerEmail.getText();
         
-        if (addCustomerName.getText().equals("") 
-                || addCustomerTel.getText().equals("")
-                || addCustomerEmail.getText().equals("")) 
+        if (name.equals("") || addCustomerTel.getText().equals("")
+                || email.equals("")) 
         {
             Alert dialog = new Alert(Alert.AlertType.ERROR);
             dialog.setHeaderText("Error");
@@ -129,29 +175,22 @@ public class FXMLDocumentController implements Initializable
         }
         else
         {
-            customers.add(new Customer(addCustomerName.getText(),
-                    Integer.parseInt(addCustomerTel.getText()), 
-                    addCustomerEmail.getText()));
-            
-            Alert dialog = new Alert(Alert.AlertType.INFORMATION);
-            dialog.setHeaderText("Customer add Success");
-            dialog.setContentText("Customer " + addCustomerName.getText() 
-                    + " add success!");
-            dialog.showAndWait();
+            admin.addCustomer(name, tel, email);
         }
     }
-    
+    @FXML
     public void addDog(ActionEvent event)
     {
-        int positionDog;
-        boolean agressive, longHair;
-        String customer = "";
+        String dogName = addDogName.getText();
+        int tel = Integer.parseInt(addDogTel.getText()); 
+        int price = Integer.parseInt(addDogPrice.getText());
+        boolean isAgressive, haveLongHair;
         
-        if (addDogName.getText().equals("") 
+        if (dogName.equals("") 
                 || addDogTel.getText().equals("")
-                || addDogSize.getText().equals("")
-                || addDogAgressive.getText().equals("")
-                || addDogLongHair.getText().equals("")
+                || sizeGroup.getSelectedToggle() == null
+                || agressiveGroup.getSelectedToggle() == null
+                || longHairGroup.getSelectedToggle() == null
                 || addDogPrice.getText().equals("")) 
         {
             Alert dialog = new Alert(Alert.AlertType.ERROR);
@@ -162,39 +201,24 @@ public class FXMLDocumentController implements Initializable
         }
         else
         {
+            String longHair[] = longHairGroup.getSelectedToggle().
+                    toString().split("'");
+            String agressive[] = longHairGroup.getSelectedToggle().
+                    toString().split("'");
             
-            if ("y".equals(addDogAgressive.getText().toLowerCase()))
-                agressive = true;
+            if (agressive[1].equals("yes"))
+                isAgressive = true;
             else
-                agressive = false;
+                isAgressive = false;
             
-            if ("y".equals(addDogLongHair.getText().toLowerCase()))
-                longHair = true;
-            
+            if (longHair[1].equals("yes"))
+                haveLongHair = true;
             else
-                longHair = false;
+                haveLongHair = false;
             
-            dogs.add(new Dog(addDogName.getText(), addDogSize.getText(),
-                    agressive, longHair,
-                    Integer.parseInt(addDogPrice.getText())));
-            
-            positionDog = dogs.size() - 1;
-            
-            for(Customer c : customers)
-            {
-                if (c.getTelephone() == Integer.parseInt(addDogTel.getText())) 
-                {
-                    c.setDogs(dogs.get(positionDog));
-                    System.out.println(c.getDogs());
-                    customer = c.getName();
-                }
-            }
-            
-            Alert dialog = new Alert(Alert.AlertType.INFORMATION);
-            dialog.setHeaderText("Customer add Success");
-            dialog.setContentText("Dog " + addDogName.getText() 
-                    + " add success for the customer " + customer);
-            dialog.showAndWait();
+            String size[] = sizeGroup.getSelectedToggle().toString().split("'");
+
+            admin.addDog(dogName, size[1], isAgressive, haveLongHair, price, tel);
         }
     }
     
@@ -225,16 +249,5 @@ public class FXMLDocumentController implements Initializable
         }
     }
     
-    /*textField.textProperty().addListener(new ChangeListener<String>() 
-    {
-        @Override
-        public void changed(ObservableValue<? extends String> observable, 
-                String oldValue, String newValue) 
-        {
-            if (!newValue.matches("\\d*")) 
-            {
-                addCustomerSize.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        }
-    });*/
+    
 }
