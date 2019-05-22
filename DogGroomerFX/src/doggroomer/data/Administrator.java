@@ -1,7 +1,9 @@
 package doggroomer.data;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,7 @@ public class Administrator
 {
     
     public static List<Customer> customers;
-    private List<Dog> dogs;
+    public static List<Dog> dogs;
     protected String name;
     protected String password;
 
@@ -23,7 +25,9 @@ public class Administrator
         this.name = name;
         this.password = password;
         this.customers = new ArrayList<>();
-        dogs = new ArrayList<>();
+        
+        initializeListCustomer();
+        initializeListDog();
     }
 
     public String getName() {return name;}
@@ -34,6 +38,61 @@ public class Administrator
 
     public void setPassword(String password) {this.password = password;}
 
+    public static void initializeListCustomer()
+    {   
+        customers = new ArrayList<>();
+        try
+        {            
+            File archivo = new File ("customers.txt");
+            FileReader fr = new FileReader (archivo);
+            BufferedReader br = new BufferedReader(fr);
+
+            String line;
+            while((line=br.readLine())!=null)
+            {
+                customers.add(new Customer(line.split(":")[0],
+                        Integer.parseInt(line.split(":")[1]),
+                        line.split(":")[2]));
+                System.out.println(customers.get(0).toString());
+            }
+            br.close();
+            fr.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println("The list customers could not be initialized");
+        }    
+    }
+    
+    public static void initializeListDog()
+    {   
+        dogs = new ArrayList<>();
+        try
+        {
+            File archivo = new File ("dogs.txt");
+            FileReader fr = new FileReader (archivo);
+            BufferedReader br = new BufferedReader(fr);
+            
+            String line;
+                
+            while((line=br.readLine())!=null)
+            {
+                System.out.println(line.split(":")[0]);
+                addDog(line.split(":")[0], line.split(":")[1], 
+                        Boolean.parseBoolean(line.split(":")[2]),
+                        Boolean.parseBoolean(line.split(":")[3]),
+                        Double.parseDouble(line.split(":")[4]),
+                        Integer.parseInt(line.split(":")[5]), true);
+                
+            }
+            br.close();
+            fr.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println("The list dog could not be initialized");
+        }    
+    }
     public void addCustomer(String name, int tel, String email)
     {
         customers.add(new Customer(name,tel,email));
@@ -42,7 +101,7 @@ public class Administrator
             File archivo = new File ("customers.txt");
             FileWriter wr = new FileWriter (archivo, true);
             BufferedWriter bw = new BufferedWriter(wr);
-            bw.write(name+":"+tel+":"+email +"\n");
+            bw.write(name+":"+Integer.toString(tel)+":"+email +"\n");
             bw.close();
             wr.close();
             
@@ -72,16 +131,19 @@ public class Administrator
     
     }
     
-    public void addDog(String name, String size, boolean isAgressive, 
-            boolean longHair, int price, int tel)
+    public static void addDog(String name, String size, boolean isAgressive, 
+            boolean longHair, double price, int tel, boolean isInitialize)
     {
+        System.out.println("eeeeeeeeeeeeeeeeeeeeeee");
+
         int positionDog;
         String customer = "";
         boolean ownerFound = false;
-        
+
         dogs.add(new Dog(name, size, isAgressive, longHair, price));
         
         positionDog = dogs.size() - 1;
+        System.out.println(dogs.get(positionDog).toString());
             
         for(Customer c : customers)
         {
@@ -91,8 +153,14 @@ public class Administrator
                 System.out.println(c.getDogs());
                 customer = c.getName();
                 ownerFound = true;
+                System.out.println(c.toString());
             }
         }
+        if (isInitialize)
+        {
+            return;
+        }
+        
         if (!ownerFound) 
         {
             dogs.remove(positionDog);

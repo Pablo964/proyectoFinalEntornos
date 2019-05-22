@@ -93,10 +93,9 @@ public class FXMLDocumentController implements Initializable
         paneCustomers.toFront();
         loginDisable = false;
         
-        
+        administrators= new ArrayList<>();        
         try
         {
-            administrators= new ArrayList<>();
             File archivo = new File ("administrators.txt");
             FileReader fr = new FileReader (archivo);
             BufferedReader br = new BufferedReader(fr);
@@ -114,7 +113,7 @@ public class FXMLDocumentController implements Initializable
         }
         catch (Exception e)
         {
-           List<Administrator> administrators = new ArrayList<>();
+           System.out.println("The list could not be initialized");
         }
         
             addCustomerTel.textProperty().addListener
@@ -182,8 +181,6 @@ public class FXMLDocumentController implements Initializable
     public void addDog(ActionEvent event)
     {
         String dogName = addDogName.getText();
-        int tel = Integer.parseInt(addDogTel.getText()); 
-        int price = Integer.parseInt(addDogPrice.getText());
         boolean isAgressive, haveLongHair;
         
         if (dogName.equals("") 
@@ -201,6 +198,9 @@ public class FXMLDocumentController implements Initializable
         }
         else
         {
+            int tel = Integer.parseInt(addDogTel.getText()); 
+            int price = Integer.parseInt(addDogPrice.getText());
+            
             String longHair[] = longHairGroup.getSelectedToggle().
                     toString().split("'");
             String agressive[] = longHairGroup.getSelectedToggle().
@@ -218,7 +218,8 @@ public class FXMLDocumentController implements Initializable
             
             String size[] = sizeGroup.getSelectedToggle().toString().split("'");
 
-            admin.addDog(dogName, size[1], isAgressive, haveLongHair, price, tel);
+            Administrator.addDog(dogName, size[1], isAgressive, 
+                    haveLongHair, price, tel, false);
         }
     }
     
