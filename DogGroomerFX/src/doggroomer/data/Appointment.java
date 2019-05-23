@@ -32,9 +32,6 @@ public class Appointment extends DogGroomer
     {
         this.date = date;
     }
-
-    
-    
     @Override
     public String toString() 
     {

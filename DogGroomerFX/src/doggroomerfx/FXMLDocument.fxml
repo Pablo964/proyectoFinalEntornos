@@ -69,7 +69,7 @@
                         <Text layoutX="22.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="long hair?" />
                         <TextField fx:id="addDogPrice" layoutX="140.0" layoutY="320.0" prefHeight="26.0" prefWidth="64.0" />
                         <Text layoutX="212.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="€" />
-                        <Button layoutX="14.0" layoutY="317.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="107.0" text="Calculate price" />
+                        <Button layoutX="14.0" layoutY="317.0" mnemonicParsing="false" onAction="#calculatePrice" prefHeight="32.0" prefWidth="107.0" text="Calculate price" />
                         <Button fx:id="btnAddDog" layoutX="80.0" layoutY="386.0" mnemonicParsing="false" onAction="#addDog" prefHeight="39.0" prefWidth="101.0" text="Add Dog" />
                         <TextField fx:id="addDogTel" layoutX="96.0" layoutY="23.0" />
                         <Text layoutX="14.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tel Customer" />

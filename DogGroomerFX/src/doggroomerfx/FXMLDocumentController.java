@@ -222,7 +222,42 @@ public class FXMLDocumentController implements Initializable
                     haveLongHair, price, tel, false);
         }
     }
-    
+    @FXML
+    public void calculatePrice(ActionEvent event)
+    {
+        if (sizeGroup.getSelectedToggle() == null 
+                || longHairGroup.getSelectedToggle() == null
+                || agressiveGroup.getSelectedToggle() == null) 
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setHeaderText("Error");
+            dialog.setContentText("you must fill in all fields in order to "
+                    + "view price");
+            dialog.showAndWait();
+        }
+        else
+        {
+            addDogPrice.clear();
+            double totalPrice = 15;
+
+            String size[] = sizeGroup.getSelectedToggle().toString().split("'");
+            String longHair[] = longHairGroup.getSelectedToggle().
+                        toString().split("'");
+            String agressive[] = agressiveGroup.getSelectedToggle().
+                    toString().split("'");
+            if("big".equals(size[1]))
+                totalPrice+=5;
+            else if("medium".equals(size[1]))
+                totalPrice+=2.5;
+
+            if (agressive[1].equals("yes"))
+                totalPrice+=10;
+
+            if (longHair[1].equals("yes"))
+                totalPrice+=5;
+            addDogPrice.setText(Double.toString(totalPrice)); 
+        }
+    }
     @FXML
     public void handleButtonAction(ActionEvent event)
     {
