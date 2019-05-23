@@ -46,21 +46,20 @@
             <Pane fx:id="paneShop" prefHeight="803.0" prefWidth="884.0" style="-fx-background-color: #0055b9;" />
             <Pane fx:id="paneCustomers" prefHeight="803.0" prefWidth="884.0" style="-fx-background-color: #23ce6c;">
                <children>
-                  <Pane layoutX="35.0" layoutY="156.0" prefHeight="323.0" prefWidth="261.0" style="-fx-background-color: #23ce3c;">
+                  <Pane layoutX="14.0" layoutY="155.0" prefHeight="323.0" prefWidth="261.0" style="-fx-background-color: #23ce3c;">
                      <children>
-                        <Text layoutX="13.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="telephone" />
-                        <TextField fx:id="addCustomerName" layoutX="91.0" layoutY="54.0" />
-                        <Text layoutX="24.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-                        <TextField fx:id="addCustomerTel" layoutX="91.0" layoutY="107.0" />
-                        <Text layoutX="21.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="email" />
-                        <TextField fx:id="addCustomerEmail" layoutX="91.0" layoutY="162.0" />
+                        <Text layoutX="14.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="telephone" />
+                        <TextField fx:id="addCustomerName" layoutX="92.0" layoutY="53.0" />
+                        <Text layoutX="25.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                        <TextField fx:id="addCustomerTel" layoutX="92.0" layoutY="106.0" />
+                        <Text layoutX="22.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="email" />
+                        <TextField fx:id="addCustomerEmail" layoutX="92.0" layoutY="161.0" />
                         <Button fx:id="btnAddCustomer" layoutX="80.0" layoutY="236.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="39.0" prefWidth="101.0" text="Add Customer" />
                      </children>
                   </Pane>
                   <Text layoutX="400.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CUSTOMERS" wrappingWidth="84.99997861496195" />
-                  <Button fx:id="btnViewCustomer" layoutX="700.0" layoutY="198.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="114.0" text="View Customer" />
                   <Text layoutX="116.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD CUSTOMER" />
-                  <Pane layoutX="328.0" layoutY="155.0" prefHeight="466.0" prefWidth="286.0" style="-fx-background-color: #23ce3c;">
+                  <Pane layoutX="299.0" layoutY="155.0" prefHeight="466.0" prefWidth="286.0" style="-fx-background-color: #23ce3c;">
                      <children>
                         <TextField fx:id="addDogName" layoutX="95.0" layoutY="84.0" />
                         <Text layoutX="16.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dog Name" />
@@ -76,13 +75,33 @@
                         <RadioButton fx:id="dogSizeBig" layoutX="56.0" layoutY="145.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="59.0" text="big" />
                         <RadioButton fx:id="dogSizeSmall" layoutX="215.0" layoutY="145.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="63.0" text="small" />
                         <RadioButton fx:id="dogSizeMedium" layoutX="121.0" layoutY="145.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="85.0" text="medium" />
-                        <RadioButton fx:id="longHairYes" layoutX="96.0" layoutY="247.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" text="yes" />
-                        <RadioButton fx:id="longHairNo" layoutX="172.0" layoutY="247.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="no" />
+                        <RadioButton fx:id="longHairYes" layoutX="99.0" layoutY="247.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" text="yes" />
+                        <RadioButton fx:id="longHairNo" layoutX="187.0" layoutY="247.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" text="no" />
                         <RadioButton fx:id="agressiveYes" layoutX="99.0" layoutY="189.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" text="yes" />
-                        <RadioButton fx:id="agressiveNo" layoutX="184.0" layoutY="189.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" text="no" />
+                        <RadioButton fx:id="agressiveNo" layoutX="188.0" layoutY="189.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" text="no" />
                      </children>
                   </Pane>
                   <Text layoutX="430.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD DOG" />
+                  <Pane layoutX="614.0" layoutY="155.0" prefHeight="466.0" prefWidth="261.0" style="-fx-background-color: #23ce3c;">
+                     <children>
+                        <Button fx:id="btnSearchCustomer" layoutX="89.0" layoutY="85.0" mnemonicParsing="false" onAction="#searchCustomer" prefHeight="39.0" prefWidth="85.0" text="Search" />
+                        <TextField fx:id="telCustomerView" layoutX="96.0" layoutY="27.0" />
+                        <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tel Customer" />
+                        <Pane fx:id="viewCustomer" disable="true" layoutX="1.0" layoutY="134.0" prefHeight="332.0" prefWidth="261.0" style="-fx-background-color: #23ce3c;">
+                           <children>
+                              <Text layoutX="16.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="telephone" />
+                              <TextField fx:id="modifyCustomerName" layoutX="94.0" layoutY="32.0" />
+                              <Text layoutX="27.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                              <TextField fx:id="modifyCustomerTel" layoutX="95.0" layoutY="85.0" />
+                              <Text layoutX="24.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="email" />
+                              <TextField fx:id="modifyCustomerEmail" layoutX="94.0" layoutY="140.0" />
+                              <Button fx:id="searchCustomer1" layoutX="40.0" layoutY="281.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="85.0" text="Modify" />
+                              <Button fx:id="searchCustomer11" layoutX="147.0" layoutY="281.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="85.0" text="Delete" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+                  <Text layoutX="692.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MODIFY CUSTOMER" />
                </children>
             </Pane>
          </children>

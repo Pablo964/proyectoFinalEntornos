@@ -52,19 +52,21 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private  Pane loginPane;
     @FXML
-    private  Pane paneAppointments, paneShop, paneCustomers, paneWhite;
+    private  Pane paneAppointments, paneShop, paneCustomers, paneWhite, 
+            viewCustomer;
     @FXML
     private Button buttonCustomer, buttonShop, buttonAppointment;
     @FXML
-    private TextField addCustomerName, addCustomerEmail;
+    private TextField addCustomerName, addCustomerEmail, addCustomerTel;
     @FXML
-    private TextField addCustomerTel;
+    private TextField  modifyCustomerName, modifyCustomerTel,
+            modifyCustomerEmail, telCustomerView;
     @FXML
-    private TextField addDogName, addDogTel, addDogAgressive, addDogLongHair,
-            addDogPrice;
+    private TextField addDogName, addDogTel,addDogPrice;
     @FXML
     private RadioButton  dogSizeBig, dogSizeMedium, dogSizeSmall, longHairYes,
             longHairNo, agressiveYes, agressiveNo;
+    
     private  List<Administrator> administrators;
     
     private Administrator admin;
@@ -256,6 +258,29 @@ public class FXMLDocumentController implements Initializable
             if (longHair[1].equals("yes"))
                 totalPrice+=5;
             addDogPrice.setText(Double.toString(totalPrice)); 
+        }
+    }
+    @FXML
+    public void searchCustomer(ActionEvent event)
+    {
+        if (telCustomerView.getText().equals("")) 
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setHeaderText("Error");
+            dialog.setContentText("Enter telephone to search customer");
+            dialog.showAndWait();
+        }
+        else
+        {
+            int telephone = Integer.parseInt(telCustomerView.getText());
+            if (Administrator.searchCustomer(telephone) != null) 
+            {
+                viewCustomer.setDisable(false);
+                Customer c = Administrator.searchCustomer(telephone);
+                modifyCustomerName.setText(c.getName());
+                modifyCustomerTel.setText(Integer.toString(telephone));
+                modifyCustomerEmail.setText(c.getEmail());
+            }
         }
     }
     @FXML

@@ -1,5 +1,6 @@
 package doggroomer.data;
 
+import doggroomerfx.FXMLDocumentController;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -121,6 +122,26 @@ public class Administrator
         }
     }
 
+    public static Customer searchCustomer(int tel)
+    {
+        boolean encountered = false;
+        for(Customer c : customers)
+        {
+            if (c.getTelephone() == tel) 
+            {
+                encountered = true;
+                return c;
+            }
+        }
+        if (!encountered) 
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setHeaderText("ERROR");
+            dialog.setContentText("The customer does not exist");
+            dialog.showAndWait();
+        }
+        return null;
+    }
     public static void modifyCustomer(Customer customer)
     {
     
