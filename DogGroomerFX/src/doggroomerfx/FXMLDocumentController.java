@@ -75,6 +75,7 @@ public class FXMLDocumentController implements Initializable
     private ToggleGroup sizeGroup, longHairGroup, agressiveGroup;
      
     private boolean loginDisable;
+    private static String oldTel = "";
     
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -92,7 +93,7 @@ public class FXMLDocumentController implements Initializable
         agressiveYes.setToggleGroup(agressiveGroup);
         agressiveNo.setToggleGroup(agressiveGroup);
         
-        paneCustomers.toFront();
+        paneWhite.toFront();
         loginDisable = false;
         
         administrators= new ArrayList<>();        
@@ -201,7 +202,7 @@ public class FXMLDocumentController implements Initializable
         else
         {
             int tel = Integer.parseInt(addDogTel.getText()); 
-            int price = Integer.parseInt(addDogPrice.getText());
+            double price = Double.parseDouble(addDogPrice.getText());
             
             String longHair[] = longHairGroup.getSelectedToggle().
                     toString().split("'");
@@ -263,7 +264,7 @@ public class FXMLDocumentController implements Initializable
     @FXML
     public void searchCustomer(ActionEvent event)
     {
-        modifyCustomerTel.setDisable(true);
+        
         if (telCustomerView.getText().equals("")) 
         {
             Alert dialog = new Alert(Alert.AlertType.ERROR);
@@ -276,6 +277,7 @@ public class FXMLDocumentController implements Initializable
             int telephone = Integer.parseInt(telCustomerView.getText());
             if (Administrator.searchCustomer(telephone) != null) 
             {
+                oldTel = telCustomerView.getText();
                 viewCustomer.setDisable(false);
                 Customer c = Administrator.searchCustomer(telephone);
                 modifyCustomerName.setText(c.getName());
@@ -290,7 +292,7 @@ public class FXMLDocumentController implements Initializable
         String name = modifyCustomerName.getText();
         String email = modifyCustomerEmail.getText();
         String tel = modifyCustomerTel.getText();
-        Administrator.modifyCustomer(tel, email, name);
+        Administrator.modifyCustomer(tel, oldTel, email, name);
     }
     @FXML
     public void deleteCustomer(ActionEvent event)

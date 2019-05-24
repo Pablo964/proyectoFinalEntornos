@@ -80,7 +80,6 @@ public class Administrator
                 
             while((line=br.readLine())!=null)
             {
-                System.out.println(line.split(":")[0]);
                 addDog(line.split(":")[0], line.split(":")[1], 
                         Boolean.parseBoolean(line.split(":")[2]),
                         Boolean.parseBoolean(line.split(":")[3]),
@@ -144,30 +143,54 @@ public class Administrator
         }
         return null;
     }
-    public static void modifyCustomer(String tel, String email, String name)
+    public static void modifyCustomer(String tel, String oldTel,
+            String email, String name)
     {
         try
         {
-            String line;
+            File inputFile = new File("customers.txt");
+            File tempFile = new File("tmp" + inputFile.getName());
+            BufferedReader br = new BufferedReader(new FileReader(inputFile.getName()));
+            PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
             
-            File f1 = new File("d:/new folder/t1.htm");
-            FileReader fr = new FileReader(f1);
-            BufferedReader br = new BufferedReader(fr);
+            String line = null;
             while ((line = br.readLine()) != null) 
             {
-                if (line.split(":")[1].equals(tel))
+                if (!line.split(":")[1].equals(oldTel)) 
                 {
-                    line.split(":")[0].replace(line.split(":")[0], name);
-                }      
+                    pw.println(line);
+                    pw.flush();
+                }
+                else
+                {
+                    pw.println(name+":"+tel+":"+email);
+                    pw.flush();
+                }
             }
-            fr.close();
             br.close();
+            pw.close();
+            Files.delete(inputFile.toPath());
+            tempFile.renameTo(inputFile);
+            
+            for(Customer c : customers)
+            {
+                if (c.getTelephone() == Integer.parseInt(oldTel)) 
+                {
+                    c.setEmail(email);
+                    c.setName(name);
+                    c.setTelephone(Integer.parseInt(tel));
+                }
+            }
+            Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+            dialog.setHeaderText("Customer modify success");
+            dialog.showAndWait();
         }
-        catch(Exception e)
+    
+        catch (Exception e)
         {
             Alert dialog = new Alert(Alert.AlertType.ERROR);
             dialog.setHeaderText("ERROR");
-            dialog.setContentText("Customer not modifyt");
+            dialog.setContentText("undeleted customer");
             dialog.showAndWait();
         }
     }
@@ -222,7 +245,6 @@ public class Administrator
         dogs.add(new Dog(name, size, isAgressive, longHair, price));
         
         positionDog = dogs.size() - 1;
-        System.out.println(dogs.get(positionDog).toString());
             
         for(Customer c : customers)
         {
