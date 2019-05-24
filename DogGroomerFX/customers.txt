@@ -1,4 +1,0 @@
-<<<<<<< Updated upstream
-paco:1:paco@hotmail
-=======
->>>>>>> Stashed changes

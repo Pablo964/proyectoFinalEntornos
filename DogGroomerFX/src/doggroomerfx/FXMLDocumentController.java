@@ -263,10 +263,7 @@ public class FXMLDocumentController implements Initializable
     @FXML
     public void searchCustomer(ActionEvent event)
     {
-<<<<<<< Updated upstream
-=======
         modifyCustomerTel.setDisable(true);
->>>>>>> Stashed changes
         if (telCustomerView.getText().equals("")) 
         {
             Alert dialog = new Alert(Alert.AlertType.ERROR);
@@ -285,8 +282,6 @@ public class FXMLDocumentController implements Initializable
                 modifyCustomerTel.setText(Integer.toString(telephone));
                 modifyCustomerEmail.setText(c.getEmail());
             }
-<<<<<<< Updated upstream
-=======
         }
     }
     @FXML
@@ -311,7 +306,6 @@ public class FXMLDocumentController implements Initializable
         {
             int telephone = Integer.parseInt(telCustomerView.getText());
             Administrator.deleteCustomer(telephone);
->>>>>>> Stashed changes
         }
     }
     @FXML

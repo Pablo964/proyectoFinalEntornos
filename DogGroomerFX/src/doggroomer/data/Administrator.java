@@ -58,15 +58,8 @@ public class Administrator
                 customers.add(new Customer(line.split(":")[0],
                         Integer.parseInt(line.split(":")[1]),
                         line.split(":")[2]));
-<<<<<<< Updated upstream
-                System.out.println(customers.get(0).toString());
             }
             br.close();
-            fr.close();
-=======
-            }
-            br.close();
->>>>>>> Stashed changes
         }
         catch(Exception e)
         {
@@ -132,29 +125,6 @@ public class Administrator
     }
 
     public static Customer searchCustomer(int tel)
-<<<<<<< Updated upstream
-    {
-        boolean encountered = false;
-        for(Customer c : customers)
-        {
-            if (c.getTelephone() == tel) 
-            {
-                encountered = true;
-                return c;
-            }
-        }
-        if (!encountered) 
-        {
-            Alert dialog = new Alert(Alert.AlertType.ERROR);
-            dialog.setHeaderText("ERROR");
-            dialog.setContentText("The customer does not exist");
-            dialog.showAndWait();
-        }
-        return null;
-    }
-    public static void modifyCustomer(Customer customer)
-=======
->>>>>>> Stashed changes
     {
         boolean encountered = false;
         for(Customer c : customers)
@@ -245,8 +215,6 @@ public class Administrator
     public static void addDog(String name, String size, boolean isAgressive, 
             boolean longHair, double price, int tel, boolean isInitialize)
     {
-        System.out.println("eeeeeeeeeeeeeeeeeeeeeee");
-
         int positionDog;
         String customer = "";
         boolean ownerFound = false;
@@ -263,7 +231,6 @@ public class Administrator
                 c.setDogs(dogs.get(positionDog));
                 customer = c.getName();
                 ownerFound = true;
-                System.out.println(c.toString());
             }
         }
         if (isInitialize)
