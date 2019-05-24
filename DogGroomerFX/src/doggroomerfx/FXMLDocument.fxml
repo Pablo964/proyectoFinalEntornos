@@ -95,8 +95,13 @@
                               <TextField fx:id="modifyCustomerTel" layoutX="95.0" layoutY="85.0" />
                               <Text layoutX="24.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="email" />
                               <TextField fx:id="modifyCustomerEmail" layoutX="94.0" layoutY="140.0" />
+<<<<<<< Updated upstream
                               <Button fx:id="searchCustomer1" layoutX="40.0" layoutY="281.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="85.0" text="Modify" />
                               <Button fx:id="searchCustomer11" layoutX="147.0" layoutY="281.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="85.0" text="Delete" />
+=======
+                              <Button layoutX="40.0" layoutY="281.0" mnemonicParsing="false" onAction="#modifyCustomer" prefHeight="39.0" prefWidth="85.0" text="Modify" />
+                              <Button layoutX="147.0" layoutY="281.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="39.0" prefWidth="85.0" text="Delete" />
+>>>>>>> Stashed changes
                            </children>
                         </Pane>
                      </children>
