@@ -30,6 +30,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
@@ -60,7 +61,8 @@ public class FXMLDocumentController implements Initializable
     private TextField addCustomerName, addCustomerEmail, addCustomerTel;
     @FXML
     private TextField  modifyCustomerName, modifyCustomerTel,
-            modifyCustomerEmail, telCustomerView;
+            modifyCustomerEmail, telCustomerView, telAddAppointment,
+            hourAddAppointment;
     @FXML
     private TextField addDogName, addDogTel,addDogPrice;
     @FXML
@@ -74,6 +76,9 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private ToggleGroup sizeGroup, longHairGroup, agressiveGroup;
      
+    @FXML
+    private DatePicker dateAddAppointment;
+    
     private boolean loginDisable;
     private static String oldTel = "";
     
@@ -160,6 +165,27 @@ public class FXMLDocumentController implements Initializable
         }
     }
     @FXML
+    public void addAppointment(ActionEvent event)
+    {
+        if(telAddAppointment.getText().equals("") 
+                || telAddAppointment.getText().equals("") 
+                || hourAddAppointment.getText().equals(""))
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setHeaderText("Error");
+            dialog.setContentText("you must fill in all fields in order to "
+                    + "add appointment");
+            dialog.showAndWait();
+        }
+        else
+        {
+            int tel = Integer.parseInt(telAddAppointment.getText());
+            String date = dateAddAppointment.getValue().toString();
+            int hour = Integer.parseInt(hourAddAppointment.getText());
+            admin.addAppointment(tel, date, hour);
+        }        
+    }
+    @FXML
     public void addCustomer(ActionEvent event)
     {
         String name = addCustomerName.getText();
@@ -178,6 +204,9 @@ public class FXMLDocumentController implements Initializable
         else
         {
             admin.addCustomer(name, tel, email);
+            addCustomerName.clear();
+            addCustomerTel.clear();
+            addCustomerEmail.clear();
         }
     }
     @FXML
@@ -223,6 +252,13 @@ public class FXMLDocumentController implements Initializable
 
             Administrator.addDog(dogName, size[1], isAgressive, 
                     haveLongHair, price, tel, false);
+            
+            addDogTel.clear();
+            sizeGroup.selectToggle(null);
+            longHairGroup.selectToggle(null);
+            agressiveGroup.selectToggle(null);
+            addDogPrice.clear();
+            addDogTel.clear();
         }
     }
     @FXML
@@ -293,6 +329,9 @@ public class FXMLDocumentController implements Initializable
         String email = modifyCustomerEmail.getText();
         String tel = modifyCustomerTel.getText();
         Administrator.modifyCustomer(tel, oldTel, email, name);
+        modifyCustomerName.clear();
+        modifyCustomerEmail.clear();
+        modifyCustomerTel.clear();
     }
     @FXML
     public void deleteCustomer(ActionEvent event)
@@ -308,6 +347,10 @@ public class FXMLDocumentController implements Initializable
         {
             int telephone = Integer.parseInt(telCustomerView.getText());
             Administrator.deleteCustomer(telephone);
+            telCustomerView.clear();
+            modifyCustomerName.clear();
+            modifyCustomerEmail.clear();
+            modifyCustomerTel.clear();
         }
     }
     @FXML

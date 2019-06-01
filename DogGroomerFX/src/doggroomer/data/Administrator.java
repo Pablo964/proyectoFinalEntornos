@@ -22,6 +22,8 @@ public class Administrator
     
     public static List<Customer> customers;
     public static List<Dog> dogs;
+    public static List<Appointment> appointments;
+
     protected String name;
     protected String password;
 
@@ -29,10 +31,10 @@ public class Administrator
     {
         this.name = name;
         this.password = password;
-        this.customers = new ArrayList<>();
         
         initializeListCustomer();
         initializeListDog();
+        initializeListAppointments();
     }
 
     public String getName() {return name;}
@@ -43,6 +45,40 @@ public class Administrator
 
     public void setPassword(String password) {this.password = password;}
 
+    public static void initializeListAppointments()
+    {   
+        appointments = new ArrayList<>();
+        
+        try
+        {      
+            Customer customerAppointment = customers.get(0);
+                    
+            File archivo = new File ("appointments.txt");
+            FileReader fr = new FileReader (archivo);
+            BufferedReader br = new BufferedReader(fr);
+
+            String line;
+            while((line=br.readLine())!=null)
+            {
+                for (Customer c : customers) 
+                {
+                    if (c.getTelephone() == Integer.parseInt(line.split(":")[0]))
+                    {
+                        customerAppointment = c;
+                    }
+                }
+                int hour = Integer.parseInt(line.split(":")[2]);
+                appointments.add(new Appointment(customerAppointment,
+                        line.split(":")[1], hour));
+            }
+            br.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println("The list appointments could not be initialized");
+        }    
+    }
+    
     public static void initializeListCustomer()
     {   
         customers = new ArrayList<>();
@@ -298,9 +334,68 @@ public class Administrator
             dialog.showAndWait();
         }
     }
-    public static void addAppointment(Appointment newAppointment)
+    public void addAppointment(int tel, String date, int hour)
     {
+        boolean telExist = false;
+        boolean appointmentExist = false;
+        Customer appointmentCustomer = customers.get(0);
         
+        for(Customer c: customers)
+        {
+            if(c.getTelephone() == tel)
+            {
+                telExist = true;
+                appointmentCustomer = c;
+            }
+        }
+        for(Appointment a: appointments)
+        {
+            if(a.getDate().equals(date) && a.getHour() == hour)
+                appointmentExist = true;
+        }
+        
+        if (!telExist) 
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+                dialog.setHeaderText("ERROR");
+                dialog.setContentText("The telephone not exist");
+                dialog.showAndWait();
+                
+                return;
+        }
+        if (appointmentExist) 
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+                dialog.setHeaderText("ERROR");
+                dialog.setContentText("You already have an appointment "
+                        + "at that time.");
+                dialog.showAndWait();
+                
+                return;
+        }
+        
+        try
+        {
+            appointments.add(new Appointment(appointmentCustomer, date, hour));
+            File archivo = new File ("appointments.txt");
+            FileWriter wr = new FileWriter (archivo, true);
+            BufferedWriter bw = new BufferedWriter(wr);
+            bw.write(tel+":"+date+":"+hour+"\n");
+            bw.close();
+            wr.close();
+
+        }
+        catch(Exception e)
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setHeaderText("ERROR");
+            dialog.setContentText("Dog don't save");
+            dialog.showAndWait();
+        }
+        
+        Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+            dialog.setHeaderText("Appointment add Success");
+            dialog.showAndWait();
     }
     
     public static void modifyAppointment(Appointment appointment)
