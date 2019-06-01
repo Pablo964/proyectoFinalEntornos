@@ -88,24 +88,24 @@
             </Pane>
             <Pane fx:id="paneAppointments" prefHeight="803.0" prefWidth="884.0" style="-fx-background-color: #272d2d;">
                <children>
-                  <Pane layoutX="14.0" layoutY="165.0" prefHeight="389.0" prefWidth="261.0" style="-fx-background-color: #6f2d2a;">
+                  <Pane layoutX="14.0" layoutY="165.0" prefHeight="356.0" prefWidth="261.0" style="-fx-background-color: #6f2d2a;">
                      <children>
                         <Text fill="#e8e3e3" layoutX="14.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tel customer" />
                         <TextField fx:id="telAddAppointment" layoutX="135.0" layoutY="126.0" prefHeight="26.0" prefWidth="85.0" />
                         <Text fill="#e8e3e3" layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
                         <Button layoutX="65.0" layoutY="245.0" mnemonicParsing="false" onAction="#addAppointment" text="Add appointment" />
                         <DatePicker fx:id="dateAddAppointment" layoutX="65.0" layoutY="35.0" prefHeight="26.0" prefWidth="85.0" />
-                        <TextField fx:id="hourAddAppointment" layoutX="207.0" layoutY="35.0" prefHeight="26.0" prefWidth="27.0" />
+                        <TextField fx:id="hourAddAppointment" layoutX="207.0" layoutY="35.0" prefHeight="26.0" prefWidth="50.0" />
                         <Text fill="#f2ecec" layoutX="166.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hour" />
                      </children>
                   </Pane>
-                  <Pane layoutX="296.0" layoutY="165.0" prefHeight="389.0" prefWidth="261.0" style="-fx-background-color: #6f2d2a;">
+                  <Pane layoutX="296.0" layoutY="165.0" prefHeight="206.0" prefWidth="261.0" style="-fx-background-color: #6f2d2a;">
                      <children>
-                        <Text fill="#e8e3e3" layoutX="17.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tel customer" />
-                        <TextField layoutX="135.0" layoutY="126.0" prefHeight="26.0" prefWidth="85.0" />
-                        <Text fill="#e8e3e3" layoutX="17.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
-                        <TextField layoutX="135.0" layoutY="35.0" prefHeight="26.0" prefWidth="85.0" />
-                        <Button layoutX="56.0" layoutY="247.0" mnemonicParsing="false" text="Delete appointment" />
+                        <Button layoutX="65.0" layoutY="150.0" mnemonicParsing="false" onAction="#deleteAppointment" text="Delete appointment" />
+                        <Text fill="#e8e3e3" layoutX="12.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+                        <DatePicker fx:id="dateDeleteAppointment" layoutX="63.0" layoutY="43.0" prefHeight="26.0" prefWidth="85.0" />
+                        <TextField fx:id="hourDeleteAppointment" layoutX="205.0" layoutY="43.0" prefHeight="26.0" prefWidth="50.0" />
+                        <Text fill="#f2ecec" layoutX="164.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hour" />
                      </children>
                   </Pane>
                   <Pane layoutX="574.0" layoutY="165.0" prefHeight="228.0" prefWidth="261.0" style="-fx-background-color: #6f2d2a;">

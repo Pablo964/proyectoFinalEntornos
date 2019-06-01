@@ -6,9 +6,9 @@ public class Appointment extends DogGroomer
 {
     protected Customer customer;
     protected String date;
-    protected int hour;
+    protected String hour;
 
-    public Appointment(Customer customer, String date, int hour) 
+    public Appointment(Customer customer, String date, String hour) 
     {
         this.customer = customer;
         this.date = date;
@@ -30,12 +30,12 @@ public class Appointment extends DogGroomer
         return date;
     }
 
-    public int getHour() 
+    public String getHour() 
     {
         return hour;
     }
 
-    public void setHour(int hour) 
+    public void setHour(String hour) 
     {
         this.hour = hour;
     }

@@ -64,7 +64,7 @@ public class FXMLDocumentController implements Initializable
             modifyCustomerEmail, telCustomerView, telAddAppointment,
             hourAddAppointment;
     @FXML
-    private TextField addDogName, addDogTel,addDogPrice;
+    private TextField addDogName, addDogTel,addDogPrice, hourDeleteAppointment;
     @FXML
     private RadioButton  dogSizeBig, dogSizeMedium, dogSizeSmall, longHairYes,
             longHairNo, agressiveYes, agressiveNo;
@@ -77,7 +77,7 @@ public class FXMLDocumentController implements Initializable
     private ToggleGroup sizeGroup, longHairGroup, agressiveGroup;
      
     @FXML
-    private DatePicker dateAddAppointment;
+    private DatePicker dateAddAppointment, dateDeleteAppointment;
     
     private boolean loginDisable;
     private static String oldTel = "";
@@ -181,10 +181,31 @@ public class FXMLDocumentController implements Initializable
         {
             int tel = Integer.parseInt(telAddAppointment.getText());
             String date = dateAddAppointment.getValue().toString();
-            int hour = Integer.parseInt(hourAddAppointment.getText());
+            String hour = hourAddAppointment.getText();
             admin.addAppointment(tel, date, hour);
         }        
     }
+    @FXML
+    public void deleteAppointment(ActionEvent event)
+    {
+        if (dateDeleteAppointment.getValue().toString().equals("")
+                || hourDeleteAppointment.getText().equals("")) 
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setHeaderText("Error");
+            dialog.setContentText("Enter date and hour to delete appointment");
+            dialog.showAndWait();
+        }
+        else
+        {
+            String date = dateDeleteAppointment.getValue().toString();
+            String hour = hourDeleteAppointment.getText();
+            Administrator.deleteAppointment(date, hour);
+            
+            hourDeleteAppointment.clear();
+        }
+    }
+    
     @FXML
     public void addCustomer(ActionEvent event)
     {
