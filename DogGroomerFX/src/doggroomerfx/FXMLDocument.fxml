@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -102,17 +103,18 @@
                   <Pane layoutX="296.0" layoutY="165.0" prefHeight="206.0" prefWidth="261.0" style="-fx-background-color: #6f2d2a;">
                      <children>
                         <Button layoutX="65.0" layoutY="150.0" mnemonicParsing="false" onAction="#deleteAppointment" text="Delete appointment" />
-                        <Text fill="#e8e3e3" layoutX="12.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
-                        <DatePicker fx:id="dateDeleteAppointment" layoutX="63.0" layoutY="43.0" prefHeight="26.0" prefWidth="85.0" />
                         <TextField fx:id="hourDeleteAppointment" layoutX="205.0" layoutY="43.0" prefHeight="26.0" prefWidth="50.0" />
                         <Text fill="#f2ecec" layoutX="164.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hour" />
+                        <Text fill="#e8e3e3" layoutX="14.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+                        <DatePicker fx:id="dateDeleteAppointment" layoutX="65.0" layoutY="43.0" prefHeight="26.0" prefWidth="85.0" />
                      </children>
                   </Pane>
                   <Pane layoutX="574.0" layoutY="165.0" prefHeight="508.0" prefWidth="261.0" style="-fx-background-color: #6f2d2a;">
                      <children>
-                        <Button layoutX="73.0" layoutY="131.0" mnemonicParsing="false" text="View appointments" />
-                        <Text fill="#f8f7f7" layoutX="59.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Month to search" />
-                        <TextField layoutX="176.0" layoutY="49.0" prefHeight="26.0" prefWidth="27.0" />
+                        <Button layoutX="66.0" layoutY="131.0" mnemonicParsing="false" onAction="#searchAppointment" text="View appointments" />
+                        <TextArea fx:id="textAreaSearch" editable="false" layoutX="31.0" layoutY="197.0" prefHeight="287.0" prefWidth="200.0" />
+                        <Text fill="#e8e3e3" layoutX="53.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+                        <DatePicker fx:id="dateSearch" layoutX="104.0" layoutY="41.0" prefHeight="26.0" prefWidth="85.0" />
                      </children>
                   </Pane>
                   <Text fill="#f5f2f2" layoutX="84.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD APPOINTMENT" />

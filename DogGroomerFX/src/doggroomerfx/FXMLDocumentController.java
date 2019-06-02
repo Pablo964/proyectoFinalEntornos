@@ -6,6 +6,7 @@
 package doggroomerfx;
 
 import doggroomer.data.Administrator;
+import doggroomer.data.Appointment;
 import doggroomer.data.Customer;
 import doggroomer.data.Dog;
 import java.io.BufferedReader;
@@ -34,6 +35,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
@@ -77,7 +79,10 @@ public class FXMLDocumentController implements Initializable
     private ToggleGroup sizeGroup, longHairGroup, agressiveGroup;
      
     @FXML
-    private DatePicker dateAddAppointment, dateDeleteAppointment;
+    private DatePicker dateAddAppointment, dateDeleteAppointment, dateSearch;
+    
+    @FXML
+    private TextArea textAreaSearch;
     
     private boolean loginDisable;
     private static String oldTel = "";
@@ -101,7 +106,10 @@ public class FXMLDocumentController implements Initializable
         paneWhite.toFront();
         loginDisable = false;
         
-        administrators= new ArrayList<>();        
+        administrators= new ArrayList<>();      
+       
+        textAreaSearch.setWrapText(true);
+        
         try
         {
             File archivo = new File ("administrators.txt");
@@ -164,10 +172,39 @@ public class FXMLDocumentController implements Initializable
             }
         }
     }
+    
+    @FXML
+    public void searchAppointment(ActionEvent event)
+    {
+        textAreaSearch.clear();
+        String date = dateSearch.getValue().toString();
+        if(date.equals(""))
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setHeaderText("Error");
+            dialog.setContentText("you must fill in the date field ");
+            dialog.showAndWait();
+        }
+        else
+        {
+            for(Appointment a : Administrator.appointments)
+            {
+                if(a.getDate().equals(date))
+                {
+                    textAreaSearch.setText(textAreaSearch.getText()
+                            + "--"+a.getHour() + "h: Name " 
+                            + a.getCustomer().getName() + " Telephone: "+
+                            a.getCustomer().getTelephone()+"-- \n");
+                }
+                    
+            }
+        }        
+    }
+    
     @FXML
     public void addAppointment(ActionEvent event)
     {
-        if(telAddAppointment.getText().equals("") 
+        if(dateAddAppointment.getValue().toString().equals("") 
                 || telAddAppointment.getText().equals("") 
                 || hourAddAppointment.getText().equals(""))
         {

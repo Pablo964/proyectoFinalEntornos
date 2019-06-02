@@ -406,48 +406,61 @@ public class Administrator
     public static void deleteAppointment(String date, String hour)
     {
         boolean exist = false;
-        for(Appointment a : appointments)
+        int index = 0;
+        for(int i=0; i<appointments.size();i++)
         {
-            if (a.getDate().equals(date) && a.getHour().equals(hour))
+            if (appointments.get(i).getDate().equals(date) 
+                    && appointments.get(i).getHour().equals(hour))
             {
-                appointments.remove(a);
                 exist = true;
+                index = i;
             }
         }
-        try
+        if (exist) 
         {
-            File inputFile = new File("appointments.txt");
-            File tempFile = new File("tmp" + inputFile.getName());
-            BufferedReader br = new BufferedReader(new FileReader(inputFile.getName()));
-            PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
-            
-            String line = null;
-            while ((line = br.readLine()) != null) 
+            appointments.remove(appointments.get(index));
+            try
             {
-                if (!line.split(":")[1].equals(date) 
-                        || !line.split(":")[2].equals(hour)) 
+                File inputFile = new File("appointments.txt");
+                File tempFile = new File("tmp" + inputFile.getName());
+                BufferedReader br = new BufferedReader(new FileReader(inputFile.getName()));
+                PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+
+                String line = null;
+                while ((line = br.readLine()) != null) 
                 {
-                    pw.println(line);
-                    pw.flush();
+                    if (!line.split(":")[1].equals(date) 
+                            || !line.split(":")[2].equals(hour)) 
+                    {
+                        pw.println(line);
+                        pw.flush();
+                    }
                 }
+                br.close();
+                pw.close();
+                Files.delete(inputFile.toPath());
+                tempFile.renameTo(inputFile);
+                Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+                dialog.setHeaderText("Appointment delete success");
+                dialog.setContentText("Appointment whit date "+ date +
+                        " and hour "+hour+ " deleted");
+                dialog.showAndWait();
             }
-            br.close();
-            pw.close();
-            Files.delete(inputFile.toPath());
-            tempFile.renameTo(inputFile);
-            Alert dialog = new Alert(Alert.AlertType.INFORMATION);
-            dialog.setHeaderText("Customer delete success");
-            dialog.setContentText("Appointment whit date "+ date +
-                    "and hour"+hour+ "deleted");
-            dialog.showAndWait();
+
+            catch (Exception e)
+            {
+                Alert dialog = new Alert(Alert.AlertType.ERROR);
+                dialog.setHeaderText("ERROR");
+                dialog.setContentText("undeleted customer");
+                dialog.showAndWait();
+            }
         }
-    
-        catch (Exception e)
+        else
         {
             Alert dialog = new Alert(Alert.AlertType.ERROR);
-            dialog.setHeaderText("ERROR");
-            dialog.setContentText("undeleted customer");
-            dialog.showAndWait();
+                dialog.setHeaderText("ERROR");
+                dialog.setContentText("customer not exist");
+                dialog.showAndWait();
         }
     }
     
