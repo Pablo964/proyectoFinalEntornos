@@ -5,6 +5,8 @@
  */
 package doggroomerfx;
 
+import doggromer.data.Product;
+import doggromer.data.Shop;
 import doggroomer.data.Administrator;
 import doggroomer.data.Appointment;
 import doggroomer.data.Customer;
@@ -64,14 +66,17 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private TextField  modifyCustomerName, modifyCustomerTel,
             modifyCustomerEmail, telCustomerView, telAddAppointment,
-            hourAddAppointment;
+            hourAddAppointment, addProductName, addProductPrice;
     @FXML
-    private TextField addDogName, addDogTel,addDogPrice, hourDeleteAppointment;
+    private TextField addDogName, addDogTel,addDogPrice, hourDeleteAppointment,
+            nameDeleteProduct, nameModifySearch;
     @FXML
     private RadioButton  dogSizeBig, dogSizeMedium, dogSizeSmall, longHairYes,
             longHairNo, agressiveYes, agressiveNo;
     
     private  List<Administrator> administrators;
+    
+    private Shop shop;
     
     private Administrator admin;
     
@@ -79,7 +84,8 @@ public class FXMLDocumentController implements Initializable
     private ToggleGroup sizeGroup, longHairGroup, agressiveGroup;
      
     @FXML
-    private DatePicker dateAddAppointment, dateDeleteAppointment, dateSearch;
+    private DatePicker dateAddAppointment, dateDeleteAppointment, dateSearch,
+            addProductDate, dateDeleteProduct, dateModifySearch;
     
     @FXML
     private TextArea textAreaSearch;
@@ -106,7 +112,8 @@ public class FXMLDocumentController implements Initializable
         paneWhite.toFront();
         loginDisable = false;
         
-        administrators= new ArrayList<>();      
+        administrators= new ArrayList<>(); 
+        shop = new Shop();
        
         textAreaSearch.setWrapText(true);
         
@@ -199,6 +206,48 @@ public class FXMLDocumentController implements Initializable
                     
             }
         }        
+    }
+    @FXML
+    public void addProduct(ActionEvent event)
+    {
+        if(addProductName.getText().equals("") 
+                || addProductPrice.getText().equals("") 
+                || addProductDate.getValue().toString().equals(""))
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setHeaderText("Error");
+            dialog.setContentText("you must fill in all fields in order to "
+                    + "add prduct");
+            dialog.showAndWait();
+        }
+        else
+        {
+            String name = addProductName.getText();
+            double price = Double.parseDouble(addProductPrice.getText());
+            String date = addProductDate.getValue().toString();
+            Product p = new Product(name, price, date);
+            shop.addProduct(p);
+        }        
+    }
+    
+     @FXML
+    public void deleteProduct(ActionEvent event)
+    {
+        if (nameDeleteProduct.getText().equals("")
+                || dateDeleteProduct.getValue().toString().equals("")) 
+        {
+            Alert dialog = new Alert(Alert.AlertType.ERROR);
+            dialog.setHeaderText("Error");
+            dialog.showAndWait();
+        }
+        else
+        {
+            String date = dateDeleteProduct.getValue().toString();
+            String name = nameDeleteProduct.getText();
+            shop.deleteProduct(name, date);
+            
+            hourDeleteAppointment.clear();
+        }
     }
     
     @FXML

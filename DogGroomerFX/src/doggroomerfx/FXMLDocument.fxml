@@ -26,7 +26,6 @@
       <AnchorPane layoutX="204.0" layoutY="82.0" prefHeight="785.0" prefWidth="864.0">
          <children>
             <Pane fx:id="paneWhite" prefHeight="803.0" prefWidth="884.0" style="-fx-background-color: #ffffff;" />
-            <Pane fx:id="paneShop" prefHeight="803.0" prefWidth="884.0" style="-fx-background-color: #0055b9;" />
             <Pane fx:id="paneCustomers" prefHeight="803.0" prefWidth="884.0" style="-fx-background-color: #23ce6c;">
                <children>
                   <Pane layoutX="14.0" layoutY="155.0" prefHeight="323.0" prefWidth="261.0" style="-fx-background-color: #23ce3c;">
@@ -120,6 +119,53 @@
                   <Text fill="#f5f2f2" layoutX="84.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD APPOINTMENT" />
                   <Text fill="#f5f2f2" layoutX="355.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DELETE APPOINTMENT" />
                   <Text fill="#f5f2f2" layoutX="633.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEARCH APPOINTMENT" />
+               </children>
+            </Pane>
+            <Pane fx:id="paneShop" prefHeight="803.0" prefWidth="884.0" style="-fx-background-color: #0c449e;">
+               <children>
+                  <Text fill="#f5f0f0" layoutX="120.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD PRODUCT" />
+                  <Text fill="#f5f0f0" layoutX="397.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DELETE PRODUCT" />
+                  <Pane layoutX="321.0" layoutY="175.0" prefHeight="244.0" prefWidth="261.0" style="-fx-background-color: #6f2d2a;">
+                     <children>
+                        <Text fill="#e8e3e3" layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                        <Button layoutX="79.0" layoutY="177.0" mnemonicParsing="false" onAction="#deleteProduct" text="Delete product" />
+                        <TextField fx:id="nameDeleteProduct" layoutX="59.0" layoutY="35.0" prefHeight="26.0" prefWidth="99.0" />
+                        <Text fill="#e8e3e3" layoutX="14.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+                        <DatePicker fx:id="dateDeleteProduct" layoutX="55.0" layoutY="109.0" prefHeight="26.0" prefWidth="107.0" />
+                     </children>
+                  </Pane>
+                  <Text fill="#f5f0f0" layoutX="685.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MODIFY PRODUCT" />
+                  <Pane layoutX="609.0" layoutY="175.0" prefHeight="466.0" prefWidth="261.0" style="-fx-background-color: #6f2d2a;">
+                     <children>
+                        <Text fill="#e8e3e3" layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                        <Button layoutX="68.0" layoutY="405.0" mnemonicParsing="false" onAction="#addAppointment" text="modify product" />
+                        <TextField fx:id="nameModifySearch" layoutX="59.0" layoutY="35.0" prefHeight="26.0" prefWidth="142.0" />
+                        <Text fill="#e8e3e3" layoutX="14.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+                        <DatePicker fx:id="dateModifySearch" layoutX="55.0" layoutY="86.0" prefHeight="26.0" prefWidth="142.0" />
+                        <Pane disable="true" layoutX="14.0" layoutY="193.0" prefHeight="200.0" prefWidth="228.0" style="-fx-background-color: #911507;">
+                           <children>
+                              <Text fill="#e8e3e3" layoutX="14.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" />
+                              <TextField fx:id="telAddAppointment1111" layoutX="62.0" layoutY="74.0" prefHeight="26.0" prefWidth="118.0" />
+                              <Text fill="#e8e3e3" layoutX="14.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                              <TextField fx:id="hourAddAppointment11111" layoutX="59.0" layoutY="14.0" prefHeight="26.0" prefWidth="122.0" />
+                              <Text fill="#e8e3e3" layoutX="14.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+                              <DatePicker layoutX="55.0" layoutY="132.0" prefHeight="26.0" prefWidth="107.0" />
+                           </children>
+                        </Pane>
+                        <Button layoutX="81.0" layoutY="140.0" mnemonicParsing="false" onAction="#searchProduct" text="search" />
+                     </children>
+                  </Pane>
+                  <Pane layoutX="34.0" layoutY="175.0" prefHeight="287.0" prefWidth="261.0" style="-fx-background-color: #6f2d2a;">
+                     <children>
+                        <Text fill="#e8e3e3" layoutX="14.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" />
+                        <TextField fx:id="addProductPrice" layoutX="62.0" layoutY="95.0" prefHeight="26.0" prefWidth="118.0" />
+                        <Text fill="#e8e3e3" layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                        <Button layoutX="86.0" layoutY="221.0" mnemonicParsing="false" onAction="#addProduct" text="Add product" />
+                        <TextField fx:id="addProductName" layoutX="59.0" layoutY="35.0" prefHeight="26.0" prefWidth="99.0" />
+                        <Text fill="#e8e3e3" layoutX="14.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+                        <DatePicker fx:id="addProductDate" layoutX="55.0" layoutY="153.0" prefHeight="26.0" prefWidth="107.0" />
+                     </children>
+                  </Pane>
                </children>
             </Pane>
          </children>

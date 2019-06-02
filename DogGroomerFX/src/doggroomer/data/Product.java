@@ -6,9 +6,9 @@ public class Product
 {
     protected String name;
     protected double price;
-    protected Date date;
+    protected String date;
 
-    public Product(String name, double price, Date date) 
+    public Product(String name, double price, String date) 
     {
         this.name = name;
         this.price = price;
@@ -23,9 +23,9 @@ public class Product
 
     public void setPrice(double price) {this.price = price;}
 
-    public Date getDate() {return date;}
+    public String getDate() {return date;}
 
-    public void setDate(Date date) {this.date = date;}
+    public void setDate(String date) {this.date = date;}
      
     @Override
     public String toString() 
